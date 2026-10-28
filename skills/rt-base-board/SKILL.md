@@ -61,6 +61,16 @@ https://rt.momenta.works/micro_app_tbd/RtFibBoard/detail/<id>
 - 看板创建 `POST /backend/tbd/console/api/new/rt/board/multi/create`，body `{name, product, test_plan_url_list}`
 - 规模统计取 `GET /board/multi/{id}` 的 `board_list`：计划数=长度，case=各 `case_list` 之和，里程=`sum_miles` 之和
 
+## 读看板 / 对比页的规矩（重要）
+
+- **按列名判断，不看左右**：对比视图里 BASE（旧版，只用于打 diff）可能排在左边，也可能在右边。
+  只读「列名 = 目标版本」的那一列；列名带 `BASE` 标记、或版本号是旧版本（用于对比）的，一律跳过。
+- **同名版本常按套餐合并**：Daily Board 的版本列会把该版本下多个套餐合并计算
+  （例：`1027.08` 的 227 km + 199 km = 426 km）。SPA 里看到的可能是单套餐 / `路线:交集` 口径，
+  数字对不上时先确认口径再报，别直接说"读错了"。
+- **Daily Board 定位方式**：`main.py daily list --date <日期> --product HNP` 找到 board id →
+  `daily get --id` 看版本池 → `daily report --id` 出对比报告，再按列名取目标版本。
+
 ## 坑
 
 - SSO 是 session cookie，关浏览器即失效，RT token 过期就重跑 `login`

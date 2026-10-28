@@ -116,7 +116,9 @@ def fetch_records(app: str, table: str, view: str, page: int = 3000) -> dict:
 def _ms_to_str(ms) -> str:
     if not isinstance(ms, (int, float)):
         return ""
-    return (datetime(1970, 1, 1) + timedelta(milliseconds=ms)).strftime("%Y-%m-%d %H:%M:%S")
+    # 飞书时间戳是 epoch 毫秒，必须按本地时区换算；直接 epoch 加法会少 8 小时，
+    # 导致 00:00–08:00 的记录被归到前一天。
+    return datetime.fromtimestamp(ms / 1000).strftime("%Y-%m-%d %H:%M:%S")
 
 
 def _render(field: dict, cell: dict) -> tuple[str, list[str]]:

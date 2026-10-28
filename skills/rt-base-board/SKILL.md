@@ -73,6 +73,9 @@ https://rt.momenta.works/micro_app_tbd/RtFibBoard/detail/<id>
 
 ## 坑
 
+- **时间戳必须按本地时区换算**：飞书日期字段是 epoch 毫秒，用 `datetime(1970,1,1)+timedelta(ms)` 会少 8 小时，
+  00:00–08:00 的记录会被归到前一天（曾导致 10/27 分组少一条）。统一用 `datetime.fromtimestamp(ms/1000)`。
+
 - SSO 是 session cookie，关浏览器即失效，RT token 过期就重跑 `login`
 - 刚创建的板里个别计划 `case_list` 为空属正常（数据还没回流）
 - 图表/看板打开若缺 case，等回流后刷新即可，不必重建

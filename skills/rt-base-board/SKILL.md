@@ -78,4 +78,10 @@ https://rt.momenta.works/micro_app_tbd/RtFibBoard/detail/<id>
 
 - SSO 是 session cookie，关浏览器即失效，RT token 过期就重跑 `login`
 - 刚创建的板里个别计划 `case_list` 为空属正常（数据还没回流）
+- **新建看板点开是白页**：先刷新一次（聚合渲染有延迟）；刷新仍空白才说明子看板还没同步，等回流
 - 图表/看板打开若缺 case，等回流后刷新即可，不必重建
+- **规模偏小先查两个原因，别急着判断"没读到"**：
+  1. **套餐类型**：小摸底 / 专项套餐单板几百 km、上百 case；发版全量套餐才会上万 km
+  2. **同步状态**：`sync_status != FINISHED` 的子看板 case 还在增长，过几小时会变大
+  汇报时把这两点一起说明，避免被当成漏读。
+

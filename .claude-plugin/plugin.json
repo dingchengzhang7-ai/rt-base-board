@@ -1,0 +1,10 @@
+{
+  "name": "rt-base-board",
+  "version": "1.0.0",
+  "description": "从飞书多维表格（Base）链接一键生成 RT 聚合看板：按日期与执行状态过滤路测任务，逐条拉取测试计划，按产品线聚合成组合大看板并输出规模统计。",
+  "author": {
+    "name": "Dingcheng Zhang"
+  },
+  "license": "MIT",
+  "keywords": ["feishu", "bitable", "rt", "board", "aggregate"]
+}

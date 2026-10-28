@@ -1,0 +1,14 @@
+{
+  "name": "rt-base-board",
+  "owner": {
+    "name": "Dingcheng Zhang"
+  },
+  "plugins": [
+    {
+      "name": "rt-base-board",
+      "source": "./",
+      "description": "飞书 Base 链接 → 过滤路测任务 → 拉 RT 测试计划 → 生成 HNP/UNP 聚合看板",
+      "version": "1.0.0"
+    }
+  ]
+}

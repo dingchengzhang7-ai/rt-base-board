@@ -73,6 +73,10 @@ https://rt.momenta.works/micro_app_tbd/RtFibBoard/detail/<id>
 
 ## 坑
 
+- **建板后立刻统计 = 快照，不是终值**：刚创建时 `sum_miles`/`case_list` 还在聚合，隔几十秒就能差几百公里
+  （实测 1266 km → 1450 km）。对外报数要么等 1–2 分钟重取，要么明确标注"实时值/仍在增长"。
+  重取命令：`GET /board/multi/{id}`，取各 `board_list[].sum_miles` / `case_list` 之和。
+
 - **时间戳必须按本地时区换算**：飞书日期字段是 epoch 毫秒，用 `datetime(1970,1,1)+timedelta(ms)` 会少 8 小时，
   00:00–08:00 的记录会被归到前一天（曾导致 10/27 分组少一条）。统一用 `datetime.fromtimestamp(ms/1000)`。
 
